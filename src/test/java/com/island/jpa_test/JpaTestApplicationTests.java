@@ -2,9 +2,11 @@ package com.island.jpa_test;
 
 import com.island.jpa_test.entity.Account;
 import com.island.jpa_test.entity.Country;
+import com.island.jpa_test.entity.Job;
 import com.island.jpa_test.entity.Person;
 import com.island.jpa_test.repository.AccountRepository;
 import com.island.jpa_test.repository.CountryRepository;
+import com.island.jpa_test.repository.JobRepository;
 import com.island.jpa_test.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ class JpaTestApplicationTests {
     AccountRepository accountRepository;
     @Autowired
     CountryRepository countryRepository;
+    @Autowired
+    JobRepository jobRepository;
 
     @Test
     void contextLoads() {
@@ -65,6 +69,14 @@ class JpaTestApplicationTests {
         Country country = new Country();
         country.setCountry_name("aa");
         countryRepository.save(country);
+    }
+
+    @Test
+    void jobTest() {
+        Job doctor = new Job();
+        doctor.setInfo("heal people");
+        doctor.setName("doctor");
+        jobRepository.save(doctor);
     }
 
 }
