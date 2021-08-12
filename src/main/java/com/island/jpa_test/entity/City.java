@@ -17,8 +17,14 @@ public class City {
     @ManyToOne
     Country country;
 
+
+    public void clearCity() {
+        this.getCountry().getCities().remove(this);
+    }
+
     public City() {
     }
+
 
     public int getCity_id() {
         return city_id;

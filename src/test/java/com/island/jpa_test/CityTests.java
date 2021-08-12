@@ -2,6 +2,7 @@ package com.island.jpa_test;
 
 import com.island.jpa_test.entity.City;
 import com.island.jpa_test.entity.Country;
+import com.island.jpa_test.repository.CityRepository;
 import com.island.jpa_test.repository.CountryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.List;
 public class CityTests {
     @Autowired
     CountryRepository countryRepository;
+    @Autowired
+    CityRepository cityRepository;
 
     // if use mapped to new an object must to set your mapping by object into your many to one object
     @Test
@@ -57,9 +60,32 @@ public class CityTests {
         he.setDescription("hehehehehehe");
         //set the country and city relation
         taiwan.addCity(he);
-
-        taiwan.setCities(cityList);
         countryRepository.save(taiwan);
     }
 
+    @Test
+    void getTest() {
+        List<City> cities = countryRepository.findById(10).get().getCities();
+        cities.forEach(s -> System.out.println(s.getCity_name()));
+    }
+
+    @Test
+    void addCity() {
+        Country country = countryRepository.findById(10).get();
+        City taipei = new City();
+        taipei.setCity_name("taipei");
+        taipei.setDescription("sky dragon country");
+        taipei.setCountry(country);
+
+        cityRepository.save(taipei);
+    }
+
+    @Test
+    void countryDelete(){
+        countryRepository.deleteById(10);
+    }
+    @Test
+    void cityDelete(){
+        cityRepository.deleteById(57);
+    }
 }
