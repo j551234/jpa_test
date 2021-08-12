@@ -1,34 +1,44 @@
 package com.island.jpa_test.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "country")
 
 @javax.persistence.TableGenerator(
 
-        name="country_gen",              //生成策略的名称
+        name = "country_gen",              //生成策略的名称
 
-        table="GENERATOR_TABLE",     //在数据库生成表的名称
+        table = "GENERATOR_TABLE",     //在数据库生成表的名称
 
         pkColumnName = "pk_key",     //表中第一个字段的字段名 类型为varchar,key
 
         valueColumnName = "pk_value",    //表中第二个字段的字段名 int ,value
 
-        pkColumnValue="country",     //这个策略中使用该记录的第一个字段的值(key值)
+        pkColumnValue = "country",     //这个策略中使用该记录的第一个字段的值(key值)
 
         initialValue = 1,                //这个策略中使用该记录的第二个字段的值(value值)初始化值
 
-        allocationSize=1                 //每次使用数据后累加的数值
+        allocationSize = 1                 //每次使用数据后累加的数值
 
 )
 public class Country {
     @Id
-    @GeneratedValue(strategy=GenerationType.TABLE,generator="country_gen")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "country_gen")
     int country_id;
     @Column
     String country_name;
 
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    List<City> cities = new ArrayList<>();
+
+
+    public void addCity(City city) {
+        city.setCountry(this);
+        cities.add(city);
+    }
 
     public Country() {
     }
@@ -50,4 +60,11 @@ public class Country {
     }
 
 
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
 }
