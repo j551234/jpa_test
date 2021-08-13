@@ -3,6 +3,7 @@ package com.island.jpa_test.entity;
 import com.island.jpa_test.entity.Account;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -15,13 +16,28 @@ public class Person {
     @Column
     String info;
 
-    // one me just have one country
+    // one  just have one country
     @OneToOne(cascade = CascadeType.ALL)
     // front is column will create in person table , next is the foreign key in country table
     @JoinColumn(name = "gg_account_id", referencedColumnName = "account_id")
     Account account;
 
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "person_job", joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "job_id"))
+    List<Job> jobList;
+
+
     public Person() {
+    }
+
+    public List<Job> getJobList() {
+        return jobList;
+    }
+
+    public void setJobList(List<Job> jobList) {
+        this.jobList = jobList;
     }
 
     public int getId() {
