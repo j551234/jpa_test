@@ -4,14 +4,14 @@
 
 ## spring.jpa.hibernate.ddl-auto
 
-create：
-每次加載hibernate時(啟動）都刪除上一次的生成的表，然後根據你的model類再重來生成新表，這表明沒有任何改變也要執行，導致導致數據庫表數據丟失的一個重要原因。
-create-drop ：
-每次加載hibernate時根據模型類生成表，但是sessionFactory一關閉，表就自動刪除。
-update：
-最常用的屬性，第一次加載hibernate時根據模型類會自動建立起表的結構（前提是先建立好數據庫），以後加載hibernate時根據模型類自動更新表結構，即使表結構改變了但表中的行繼續存在不會刪除以前的行。要注意是當部署到服務器後，表結構是不會被馬上啟動的，是要等應用第一次運行後會。
-validate ：
-每次加載休眠時，驗證創建數據庫表結構，創建新數據庫表時，都會進行新表比較，不會創建新表，但會插入新值。
+* create：
+ 每次加載hibernate時(啟動）都刪除上一次的生成的表，然後根據你的model類再重來生成新表，這表明沒有任何改變也要執行，導致導致數據庫表數據丟失的一個重要原因。
+* create-drop ：
+ 每次加載hibernate時根據模型類生成表，但是sessionFactory一關閉，表就自動刪除。
+* update：
+ 最常用的屬性，第一次加載hibernate時根據模型類會自動建立起表的結構（前提是先建立好數據庫），以後加載hibernate時根據模型類自動更新表結構，即使表結構改變了但表中的行繼續存在不會刪除以前的行。要注意是當部署到服務器後，表結構是不會被馬上啟動的，是要等應用第一次運行後會。
+* validate ：
+ 每次加載休眠時，驗證創建數據庫表結構，創建新數據庫表時，都會進行新表比較，不會創建新表，但會插入新值。
 
 ## Id 
 在pk的生成方式，可以藉由GeneratedValue來自動生成
@@ -19,10 +19,10 @@ validate ：
   @GeneratedValue(strategy)
   策略可以選擇 
   |GenerationType|生成方式|
-|------|------|
+  |------|------|
   |indentify |資料庫生成，autoicrement，某些資料庫不支援 |
- | table| 自行定義並存放於資料庫table|
- |auto|會自行決定最適合的方式，會在db產生hibernate_sequence table並共用順序|
+  | table| 自行定義並存放於資料庫table|
+  |auto|會自行決定最適合的方式，會在db產生hibernate_sequence table並共用順序|
 
 --- 
 
